@@ -1,66 +1,44 @@
-## Foundry
+# Decentralized StableCoin (DSC) Project
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+This repository contains the smart contract implementation of a **Decentralized StableCoin (DSC)** system, which is pegged to the US Dollar and collateralized by Ethereum (ETH) and Bitcoin (BTC). The project leverages **Foundry** for testing and deployment, ensuring a robust and scalable implementation.
 
-Foundry consists of:
+---
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+## Overview
 
-## Documentation
+The DSC system is designed to provide a decentralized and algorithmic stablecoin solution with the following features:
 
-https://book.getfoundry.sh/
+- **Collateralized by ETH and BTC**: The stablecoin's value is secured using ETH and BTC as collateral.
+- **Algorithmic Minting**: DSC tokens are minted algorithmically to maintain the peg to USD.
+- **Decentralized Governance**: The system is governed by a `DSEngine` contract to ensure decentralization.
+- **Overcollateralization**: Users must deposit collateral exceeding the value of minted DSC to ensure system stability.
 
-## Usage
+---
 
-### Build
+## Smart Contracts
 
-```shell
-$ forge build
-```
+### 1. DecentralizedStableCoin.sol
+- An ERC20 token with additional burn and mint functionalities.
+- Key Features:
+  - **Minting**: Only the owner (governance) can mint new DSC tokens.
+  - **Burning**: DSC tokens can be burned to reduce supply.
+  - Implements OpenZeppelin's ERC20Burnable and Ownable.
 
-### Test
+### 2. DSCEngine.sol
+- The core logic contract for managing collateral, minting, and liquidation.
+- Key Features:
+  - Deposit and redeem collateral (ETH, BTC).
+  - Mint and burn DSC tokens based on the health factor of user accounts.
+  - Liquidation mechanism to ensure overcollateralization.
+  - Price feeds via Chainlink for collateral valuation.
 
-```shell
-$ forge test
-```
+---
 
-### Format
+## Key Concepts
 
-```shell
-$ forge fmt
-```
+1. **Health Factor**: A metric to determine the safety of a user's collateralized position. A value below `1` triggers liquidation.
+2. **Collateralization**: The system requires users to deposit more collateral than the DSC they mint.
+3. **Liquidation**: Users with a health factor below `1` can have their collateral seized to cover their debt.
 
-### Gas Snapshots
+---
 
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
