@@ -2,6 +2,8 @@
 
 This repository contains the smart contract implementation of a **Decentralized StableCoin (DSC)** system, which is pegged to the US Dollar and collateralized by Ethereum (ETH) and Bitcoin (BTC). The project leverages **Foundry** for testing and deployment, ensuring a robust and scalable implementation.
 
+**NOTE: THE TESTS ARE NOT COMPLETE**
+
 ---
 
 ## Overview
